@@ -11,11 +11,11 @@ if(isset($_SESSION['watibuveur'])){
         $id_user = $_SESSION['watibuveur']['id'];
     }
     else{
-        header("Location: /ladescente-main/templates/page_compte.php");
+        header("Location: /templates/page_compte.php");
     }
 }
 else{
-    header("Location: /ladescente-main/templates/page_compte.php");
+    header("Location: /templates/page_compte.php");
 }
 
 function verification_session(){

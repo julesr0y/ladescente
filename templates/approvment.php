@@ -11,11 +11,11 @@ if(isset($_SESSION['watibuveur'])){
         $id_user = $_SESSION['watibuveur']['id'];
     }
     else{
-        header("Location: /ladescente-main/templates/page_compte.php");
+        header("Location: /templates/page_compte.php");
     }
 }
 else{
-    header("Location: /ladescente-main/templates/page_compte.php");
+    header("Location: /templates/page_compte.php");
 }
 ?>
 <?php
@@ -26,7 +26,7 @@ if (!empty($_GET))
         $query = $db->prepare("UPDATE recipes SET approved = 1 WHERE id=:num");
         $query->bindValue(':num', intval($_GET['id']), PDO::PARAM_INT);
         $query->execute();
-        header("Location: /ladescente-main/templates/approve_recipe.php");
+        header("Location: /templates/approve_recipe.php");
     }
 }
 ?>
