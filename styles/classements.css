@@ -1,0 +1,35 @@
+body > .partie_classements{ /*placement des conteneurs avec flex en colonne*/
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ol{/*alignement des listes dans leur conteneur*/
+    display: inline-block;
+    text-align: left;
+}
+
+h5 > a{ /*couleur du lien redirigeant vers drinks international*/
+    color: red;
+}
+
+.conteneur_classment{
+    background-color: #afcfd9;
+    padding: 2%;
+    width: 70%;
+    border: solid black;
+    border-radius: 10px;
+}
+
+@media only screen and (600px<=width) {
+    /*tablette*/
+    /*création de l'animation sous les liens de nav*/
+    .conteneur_classment{
+        width: 50%;/*taille des cases contenant les classements*/
+    }
+}
+
+@media only screen and (768px<=width) {
+    /*ordinateur*/
+}

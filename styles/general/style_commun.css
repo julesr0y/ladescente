@@ -1,0 +1,112 @@
+/*Insertion de la police, ne pas modifier*/
+@font-face {
+    font-family: 'modernm';
+    src: url('../../font/modern_m-webfont.woff2') format('woff2'),
+         url('../../font/modern_m-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+*{
+    margin: 0;
+    font-family: 'modernm';
+}
+
+header{
+    background-image: url(../../img/pyr.webp);
+    background-size: cover; /*disposition du fond d'écran*/
+    height: 15vh; /*taille du header*/
+    background-position-y: 45%; /*cette propriété permet de placer l'image par rapport à un axe vertical*/
+    display: flex; /*positionnement des éléments dans le header*/
+    justify-content: space-between; /*avec space-between, on retrouve nos 2 éléments sur les côtés de l'écran*/
+    padding-right: 3%; /*on décale l'élément de droite par rapport au bord droit (marge interne)*/
+    padding-left: 3%; /*on décale l'élément de gauche par rapport au bord gauche (marge interne)*/
+    align-items: center; /*on centre les éléments verticalement dans le header*/
+}
+
+header > p, header > a{
+    color: white;
+    text-decoration: none;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+nav{
+    padding-left: 3%;
+    padding-right: 3%;
+    display: grid;
+    grid-template-areas: "accueil    recette     decouverte"
+                         "newsletter classements apropos";
+    text-align: center;
+}
+
+.recettes{
+    grid-area: recette;
+}
+
+.decouverte{
+    grid-area: decouverte;
+}
+
+.classements{
+    grid-area: classements;
+}
+
+.newsletter{
+    grid-area: newsletter;
+}
+
+.a_propos{
+    grid-area: apropos;
+}
+
+nav > a{
+    color: black;
+    text-decoration: none;
+    position: relative; 
+}
+
+@media only screen and (600px<=width) {
+    /* tablette
+    */
+    nav > a:hover::after{
+        display: inline;
+        content: '';
+        height: 3px;
+        background: black;
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0%;
+        animation-name: survol;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-delay: 0s;
+    }
+
+    @keyframes survol{
+        from{
+            width: 0%;
+        }
+        50%{
+            width: 100%;
+            left: 0;
+        }
+        to{
+            left: 100%;
+            width: 0%;
+        }
+    }
+}
+
+@media only screen and (768px<=width) {
+    /* ordinateur
+    */
+    nav{
+        display: flex;
+        justify-content: space-evenly;
+    }
+}

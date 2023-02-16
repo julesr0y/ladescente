@@ -1,0 +1,24 @@
+.titre{
+    text-align: center;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+@media only screen and (600px<=width) {
+    /* tablette
+    */
+}
+
+@media only screen and (768px<=width) {
+    /* ordinateur
+    */
+    main{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+}

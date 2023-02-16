@@ -1,0 +1,45 @@
+.titre{
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.approve{
+    display: flex;
+    justify-content: center;
+}
+
+.stats{
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    border: solid black;
+    border-radius: 10px;
+    width: 90vw;
+}
+
+.stats > div{
+    text-align: center;
+    padding: 3%;
+}
+
+@media only screen and (600px<=width) {
+    /* tablette
+    */
+    .stats{
+        width: 70vw;
+    }
+
+    .stats > div{
+        text-align: center;
+        padding: 1%;
+    }
+}
+
+@media only screen and (768px<=width) {
+    /* ordinateur
+    */
+}

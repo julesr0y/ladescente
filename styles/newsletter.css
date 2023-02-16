@@ -1,0 +1,101 @@
+.formLetter{ /*Mise en forme du formulaire d'inscription à la newsletter*/
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 5vh;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.signupbtn { /*Mise en forme du bouton d'inscription*/
+    background-color:black;
+    color: white;
+    position: relative;
+    left: 35%;
+    padding: 0.4vw 0.5vh;
+    cursor: pointer;
+    width: 25%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.signupbtn:active {
+    opacity: 0.5;
+    color: white;
+}
+.formLetter > label{
+    position: relative;
+    left: 35%;
+}
+.background{ /*Mise en forme du fond d'écran*/
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+.main{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 5vh;
+}
+fieldset{
+    border: 2px solid #afcfd9 ;
+    border-radius: 10px;
+    padding: 1vw;
+}
+.cocktailnews{ /*Mise en forme de l'image de remplissage dans le formulaire d'inscription*/
+    position: absolute;
+    left: 77%;
+    bottom: 50%
+}
+
+@media only screen and (600px<=width) {
+    /* tablette
+    */
+    .legende{
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .formLetter{
+        margin: 0%;
+    }
+    .cocktailnews{
+        position: absolute;
+        left: 65%;
+        bottom: 40%;
+        height: 17%;
+    }
+}
+
+
+@media only screen and (768px<=width) {
+    /* ordinateur
+    */
+    .legende{
+        font-size: 1.5em;
+        text-align: center;
+    }
+    .formLetter #prenom,#nom,#courriel,#start{
+        height: 2vw;
+    }
+    .formLetter #prenom,#nom{
+        width: 10vw;
+    }
+    .formLetter #courriel{
+        width: 15vw;
+    }
+    .formLetter #start{
+        width: 7vw;
+    }
+    .cocktailnews{
+        position: absolute;
+        left: 57%;
+        bottom: 50%;
+        height: 17%;
+    }
+}

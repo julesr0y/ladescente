@@ -1,0 +1,76 @@
+fieldset{
+    padding: 1%;
+    margin: 1%;
+    border: 2px solid #afcfd9 ;
+    border-radius: 10px;
+    padding: 1vw;
+}
+footer{
+    background-color: #afcfd9;
+    height: 9vh;
+    color: white;
+    text-align: center;
+    top: 100%;
+    padding: 1%;
+    border-radius: 10px;
+    margin: 1%;
+}
+legend{
+    color: black;
+    font-size: 4vw;
+}
+
+
+@media only screen and (600px<=width) {
+    /* tablette
+    */
+    legend{
+        color: black;
+        font-size: 3vw;
+    }
+    ul{
+        color: black;
+        font-size: 2vw;
+    }
+    footer{
+
+        background-color: #afcfd9;
+        height: 7vh;
+        color: white;
+        text-align: center;
+        top: 75%;
+        margin: 100%;
+        padding: 1%;
+        border-radius: 10px;
+    }
+}
+
+
+@media only screen and (768px<=width) {
+    /* ordinateur
+    */
+    footer{
+        background-color: #afcfd9;
+        height: 7vh;
+        color: white;
+        text-align: center;
+        top: 100%;
+        padding: 1%;
+        border-radius: 10px;
+        margin: 1%;
+    }
+    legend{
+        color: black;
+        font-size: 2vw;
+    }
+    ul{
+        color: black;
+        font-size: 1.3vw;
+    }
+    .loi {
+        font-size: 1.3vw;
+    }
+    .actu{
+        font-size: 1vw;
+    }
+}

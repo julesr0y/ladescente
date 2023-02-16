@@ -1,0 +1,93 @@
+body{
+    text-align: center;
+}
+.type{
+    font-size:24px;
+}
+#ent{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.prepost{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post{   
+    border-style: solid;
+    border-color: black;
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    padding-right: 2%;
+    padding-left: 2%;
+    margin: 3%;
+    background-color: #afcfd9;
+} 
+.titre{
+    font-size: 30px;
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.ingredient{
+    font-size: 15px;
+    margin-top: 2%;
+    text-align: left;
+}
+
+.preparation{
+    text-align: left;
+    margin-top: 2%;
+}
+.preparation>p{
+    line-height: 5%;
+    text-align: left;
+}
+.conseil{
+    font-weight: bold;
+}
+.type>p{
+    margin: 10%;
+}
+
+.img{
+    width:50%;
+    height: auto;
+}
+
+.rhum_liste > li{
+    padding-bottom: 5%;
+}
+
+#ent > a{
+    text-decoration: none;
+    color: black;
+}
+#ent > a:hover{
+    font-size: 15px;
+}
+
+#ent > a:visited{
+    text-decoration: none;
+    color: black;
+}
+@media only screen and (600px<=width) {
+    /* tablette
+    */
+    .img{
+        height: auto;
+        width: 40%;
+    }
+}
+
+@media only screen and (768px<=width) {
+    /* ordinateur
+    */
+    .rhum_liste > li{
+        padding-bottom: 2%;
+    }
+}

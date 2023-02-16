@@ -1,0 +1,66 @@
+body{
+    text-align: center;
+}
+
+.titre{
+    text-align: center;
+}
+
+.prepost{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post{   
+    border-style: solid;
+    border-color: black;
+    position: relative;
+    width: 70%;
+    border-radius: 10px;
+    padding-right: 2%;
+    padding-left: 2%;
+    margin: 3%;
+    background-color: #afcfd9;
+} 
+.titre_recette{
+    font-size: 30px;
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.ingredient{
+    font-size: 15px;
+    margin-top: 2%;
+    text-align: left;
+}
+
+.preparation{
+    text-align: left;
+    margin-top: 2%;
+}
+.preparation>p{
+    line-height: 5%;
+    text-align: left;
+}
+.conseil{
+    font-weight: bold;
+}
+.type{
+    font-size:24px;
+}
+.type>p{
+    margin: 10%;
+}
+
+@media only screen and (600px<=width) {
+    /* tablette
+    */
+}
+
+@media only screen and (768px<=width) {
+    /* ordinateur
+    */
+}

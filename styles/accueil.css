@@ -1,0 +1,81 @@
+/*Insertion de la police, ne pas modifier*/
+@font-face {
+  font-family: 'modernm';
+  src: url('../font/modern_m-webfont.woff2') format('woff2'),
+       url('../font/modern_m-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+*{
+  font-family: 'modernm';/*règle la police de toute la page*/
+}
+
+.texte{
+  text-align: center;
+  position: absolute; /*permet (avec les 3 lignes en dessous, de placer le texte et le bouton au centre de l'écran*/
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+}
+
+.logo{/*taille du logo*/
+  height: 30vh;
+  width: auto;
+}
+
+.droite{/*en vue mobile, on n'affiche pas l'image a droite*/
+    display: none;
+}
+
+.bouton{
+  background-color: rgb(18, 18, 54);
+  padding-top: 2%;
+  padding-bottom: 2%;
+  border-radius: 10px;
+}
+
+.bouton:hover{
+  transition-duration: 2s;
+  background-color: rgb(56, 1, 1);
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.warning{
+  font-size: 15px;
+}
+
+@media screen and (1200px<=width){
+  /* ordinateur*/
+  body{
+    position: relative;
+    display: flex; /*on place les éléments de body en flex*/
+    justify-content: space-evenly;
+    margin: 0;
+    left: 0%;
+    top: 0%;
+    transform: translate(0%, 0%);
+  }
+
+  .gauche{
+    position: relative;
+    flex: 1; /*permet de définir l'étirement du texte dans la partie gauche*/
+  }
+
+  .texte{
+    font-size: 20px;
+  }
+
+  .droite{
+    display: inline; /*on fait apparaitre l'image quand l'ecran est au moins a 1200px*/
+    height: 100vh;
+    width: auto;
+    margin-right: 0;
+  }
+}
