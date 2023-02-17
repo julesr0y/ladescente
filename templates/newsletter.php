@@ -55,12 +55,13 @@ require_once '../db/verif_session.php'; //verification de la session
                     <input type="checkbox" id="conditions" name="conditions" required="required">
                 <br><br>
                 <button type="submit" class="signupbtn">S'inscrire</button>
+                <p class='erreur'><br>Attention, cet email est déjà inscrit</p>
                 <img src="../img/ctlnewsletter.gif" alt="cocktail" class="cocktailnews"><!--"On ajoute une image afin de remplir un petit peu"-->
         </fieldset>
     </form>
     <main>
         <div class="main">
-            <p>La descente est un site qui vous permet de découvrir des recettes de cocktail mais aussi d'en échanger avec d'autres utilisateurs dans le futur</p>
+            <p>La descente est un site qui vous permet de découvrir des recettes de cocktail mais aussi d'en échanger avec d'autres utilisateurs</p>
             <br>
             <p>En vous inscrivant à notre newsletter vous allez recevoir de temps en temps des mails d'information</p>
         </div>        
@@ -83,11 +84,21 @@ if (!empty($_POST))
         {
             die("Adresse mail incorrecte");
         }
+        $email = $_POST["courriel"];
 
+        //on vérifie que l'adresse mail n'existe pas déjà en bdd
+        $verif_requete = "SELECT * FROM newsletter WHERE email=?";
+        // Process the query
+        $verif_query = $db->prepare($verif_requete);
+        $verif_query->execute([$email]);
+        if($verif_query->fetch()){
+            die("<style>.erreur{ display: block; }</style>"); //on rend le message d'erreur visible, et on stoppe le traitement des données
+        }
+
+        //si c'est bon, on continue a traiter les données
         //traitement date de naissance
         $birthdate = date('Y-m-d', strtotime($_POST['start']));
         //on enregistre en bdd
-        require_once '../db/connect_db.php'; //connexion a la bdd
         $sql = "INSERT INTO newsletter(`genre`, `nom`, `prenom`, `email`, `naissance`) VALUES(:genre, :nom, :prenom, :email, :naissance)";
         //préparation de la requête sql
         $query = $db->prepare($sql);

@@ -53,6 +53,8 @@ require_once '../db/verif_session_conn_insc.php'; //verification de la session
             <input type="checkbox" id="conditions" name="conditions" required="required"><!--checkbox permet d'afficher une case a cocher--> 
             <br><br>
             <button type="submit" class="signupbtn">S'inscrire</button>
+            <p class='erreur-pseudo'><br>Erreur, ce pseudo est déjà utilisé</p>
+            <p class='erreur-email'><br>Erreur, cet email est déjà utilisé</p>
         </fieldset>
     </form>
 </body>
@@ -69,10 +71,30 @@ if (!empty($_POST))
         $nom = strip_tags($_POST["nom"]);
         $prenom = strip_tags($_POST["prenom"]);
         $username = strip_tags($_POST["username"]);
+
+        //on vérifie que l'username n'existe pas déjà en bdd
+        $verif_requete = "SELECT * FROM users WHERE username=?";
+        // Process the query
+        $verif_query = $db->prepare($verif_requete);
+        $verif_query->execute([$username]);
+        if($verif_query->fetch()){
+            die("<style>.erreur-pseudo{ display: block; }</style>"); //on rend le message d'erreur visible, et on stoppe le traitement des données
+        }
+
         //on vérifie que l'entrée "email" est bien de type email, sinon on retourne une erreur
         if (!filter_var($_POST["courriel"], FILTER_VALIDATE_EMAIL))
         {
-            die("Adresse mail incorrecte");
+            die("Adresse mail incorrecte"); //on stoppe le traitement des données
+        }
+        $email = $_POST["courriel"];
+
+        //on vérifie que l'adresse mail n'existe pas déjà en bdd
+        $verif_requete2 = "SELECT * FROM users WHERE email=?";
+        // Process the query
+        $verif_query2 = $db->prepare($verif_requete2);
+        $verif_query2->execute([$email]);
+        if($verif_query2->fetch()){
+            die("<style>.erreur-email{ display: block; }</style>"); //on rend le message d'erreur visible, et on stoppe le traitement des données
         }
 
         //on hashe le mdp
@@ -88,7 +110,7 @@ if (!empty($_POST))
         $query->bindValue(":nom", $nom, PDO::PARAM_STR);
         $query->bindValue(":prenom", $prenom, PDO::PARAM_STR);
         $query->bindValue(":username", $username, PDO::PARAM_STR);
-        $query->bindValue(":email", $_POST["courriel"], PDO::PARAM_STR);
+        $query->bindValue(":email", $email, PDO::PARAM_STR);
         $query->bindValue(":pass", $pass, PDO::PARAM_STR);
         $query->bindValue(":datebirth", $birthdate, PDO::PARAM_STR);
         $query->bindValue(":roles", '[\"ROLE_USER\"]', PDO::PARAM_STR);

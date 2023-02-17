@@ -17,7 +17,7 @@ require_once '../db/verif_session_pagecompte.php'; //verification de la session
 <header>
         <a href="../index.php">La descente</a>
         <?php
-        if(verification_session() == true){
+        if(verification_session_pagecompte() == true){
             $account_name = $_SESSION["watibuveur"]["genre"]." ".$_SESSION["watibuveur"]["nom"]." ".$_SESSION["watibuveur"]["prenom"];
             echo "<a href='page_compte.php'>$account_name</a>";
         }

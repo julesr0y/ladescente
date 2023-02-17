@@ -70,6 +70,18 @@ fieldset{
     height: 5vh;
 }
 
+.erreur-pseudo{
+    text-align: center;
+    color: red;
+    display: none; /*par défaut, le message d'erreur est invisible*/
+}
+
+.erreur-email{
+    text-align: center;
+    color: red;
+    display: none; /*par défaut, le message d'erreur est invisible*/
+}
+
 @media only screen and (600px<=width) {
     /*tablette*/
     /*création de l'animation sous les liens de nav*/

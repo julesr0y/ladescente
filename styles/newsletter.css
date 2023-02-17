@@ -53,6 +53,12 @@ fieldset{
     bottom: 50%
 }
 
+.erreur{
+    text-align: center;
+    color: red;
+    display: none; /*par défaut, le message d'erreur est invisible*/
+}
+
 @media only screen and (600px<=width) {
     /* tablette
     */

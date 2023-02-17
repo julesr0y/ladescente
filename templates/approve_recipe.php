@@ -4,28 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once '../db/connect_db.php'; //connexion a la bdd
-//si l'utilisateur n'est pas connecté, on le renvoie sur la page de connexion
-if(isset($_SESSION['watibuveur'])){
-    if($_SESSION['watibuveur']['roles'] == '[\"ROLE_ADMIN\"]'){
-        //si l'utilisateur est connecté, on récupère son id de connexion (idd)
-        $id_user = $_SESSION['watibuveur']['id'];
-    }
-    else{
-        header("Location: /templates/page_compte.php");
-    }
-}
-else{
-    header("Location: /templates/page_compte.php");
-}
-
-function verification_session(){
-    if(isset($_SESSION['watibuveur'])){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
+require_once '../db/verif_admin.php'; //on vérifie que l'user est admin
 ?>
  <?php
     $sql = "SELECT * FROM `recipes` WHERE `approved` = 0 ORDER BY `id` DESC"; //récupération des recettes non approuvées
