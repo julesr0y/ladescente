@@ -16,16 +16,16 @@ fieldset{
 }
 /*ici, on définit la taille des différents éléments du formulaire*/
 .formLetter #prenom,#nom,#courriel,#start,#start{
-    height: 2vw;
+    height: 4vw;
 }
 .formLetter #prenom,#nom{
-    width: 10vw;
+    width: 40vw;
 }
 .formLetter #courriel{
-    width: 15vw;
+    width: 50vw;
 }
 .formLetter #start{
-    width: 7vw;
+    width: 30vw;
 }
 .signupbtn {/*style du bouton*/
     background-color:black;
@@ -56,13 +56,13 @@ fieldset{
     justify-content: space-evenly;
 }
 
-.btn > a{
+.inscbtn {/*style du bouton*/
+    background-color:white;
     color: black;
-    text-decoration: none;
-    padding: 0.5vw;
-    border: 1px solid black;
+    padding: 0.4vh;
+    cursor: pointer;
+    width: 30%;
     border-radius: 5px;
-    margin: 0.5vw;
 }
 
 .biere{ /*taille du gif animé bière*/
@@ -88,6 +88,20 @@ fieldset{
     .biere{ /*taille du gif animé bière*/
         width: auto;
         height: 7vh;
+    }
+
+    /*ici, on définit la taille des différents éléments du formulaire*/
+    .formLetter #prenom,#nom,#courriel,#start,#start{
+        height: 2vw;
+    }
+    .formLetter #prenom,#nom{
+        width: 10vw;
+    }
+    .formLetter #courriel{
+        width: 15vw;
+    }
+    .formLetter #start{
+        width: 7vw;
     }
 }
 

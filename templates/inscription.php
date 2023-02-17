@@ -52,7 +52,10 @@ require_once '../db/verif_session_conn_insc.php'; //verification de la session
             <label class="point">J'accepte les conditions générales d'inscription : </label>
             <input type="checkbox" id="conditions" name="conditions" required="required"><!--checkbox permet d'afficher une case a cocher--> 
             <br><br>
-            <button type="submit" class="signupbtn">S'inscrire</button>
+            <div class="btn">
+                <button type="submit" class="signupbtn">S'inscrire</button>
+                <button type="button" class="inscbtn" onclick="window.location.href='connexion.php';">Connexion</button>
+            </div>
             <p class='erreur-pseudo'><br>Erreur, ce pseudo est déjà utilisé</p>
             <p class='erreur-email'><br>Erreur, cet email est déjà utilisé</p>
         </fieldset>

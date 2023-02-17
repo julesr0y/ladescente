@@ -31,7 +31,7 @@ require_once '../db/verif_session_conn_insc.php'; //verification de la session
             <div class="btn">
                 <button type="submit" class="signupbtn">Connexion</button>
                 <img src="../img/biere.gif" alt="Biere" class="biere">
-                <a href="inscription.php">S'inscrire</a>
+                <button type="button" class="inscbtn" onclick="window.location.href='inscription.php';">S'inscrire</button>
             </div>
         </fieldset>
     </form>

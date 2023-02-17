@@ -13,7 +13,7 @@
     <div class="texte">
         <img class="logo" src="img/logo2.webp" alt="logo">
         <br>
-        <p>Le premier site au style sobre qui vous enivra</p>
+        <p>Le premier site au style sobre qui vous enivrera</p>
         <br>
         <div class="bouton">
             <a href="templates/accueil_presentation.php">Entrer dans la cave aux miracles</a>
