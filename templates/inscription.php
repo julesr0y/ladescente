@@ -1,9 +1,97 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-require_once '../db/connect_db.php'; //connexion a la bdd
-require_once '../db/verif_session_conn_insc.php'; //verification de la session
+session_start();
+require_once '../php_files/fonctions.php'; //importation des fonctions
+require '../struct_files/banniere_cookies.html'; //importation de la banniere de cookies
+authorized_cookies(); //on vérifie si les cookies sont autorisés
+verif_cookie(); //on vérifie si les cookies existent
+is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pas connecté
+
+    //traitement php sql de l'inscription + mise en place de la session
+    if (isset($_POST["Inscription"])) { //si le formulaire concerné existe
+        try{
+            require_once '../php_files/connect_db.php'; //connexion a la bdd
+
+            //validation des données
+            $genre = valider_donnees($_POST["genre"]);
+            $nom = valider_donnees($_POST["nom"]);
+            $prenom = valider_donnees($_POST["prenom"]);
+            $username = valider_donnees($_POST["username"]);
+            $courriel = valider_donnees($_POST["courriel"]);
+            $mdp = valider_donnees($_POST["mdp"]);
+            $start = valider_donnees($_POST["start"]);
+
+            //on vérifie que l'username n'existe pas déjà en bdd
+            $verif_username = $db->prepare("SELECT * FROM users WHERE username = ?"); //preparation de la requete
+            $verif_username->execute([$username]); //execution de la requete
+            if($verif_username->fetch()){ //si on a retrouvé la même valeur dans la bdd
+                die("<style>.erreur-pseudo{ display: block; }</style>"); //on rend le message d'erreur visible, et on stoppe le traitement des données
+            }
+
+            //on vérifie que l'adresse mail n'existe pas déjà en bdd
+            $verif_email = $db->prepare("SELECT * FROM users WHERE email = ?"); //preparation de la requete
+            $verif_email->execute([$courriel]); //execution de la requete
+            if($verif_email->fetch()){ //si on a retrouvé la même valeur dans la bdd
+                die("<style>.erreur-email{ display: block; }</style>"); //on rend le message d'erreur visible, et on stoppe le traitement des données
+            }
+
+            //on hashe le mdp pour le stocker dans la bdd
+            $pass = password_hash($mdp, PASSWORD_DEFAULT);
+
+            //traitement de la date de naissance
+            $birthdate = date('Y-m-d', strtotime($start));
+
+            //préparation de la requête sql
+            $req = $db->prepare("INSERT INTO users(genre, nom, prenom, username, email, mdp, datebirth, roles) VALUES(:genre, :nom, :prenom, :username, :email, :mdp, :birthdate, :roles)"); //preparation de la requete
+            $req->execute(array( //execution de la requete
+                ':genre' => $genre,
+                ':nom' => $nom,
+                ':prenom' => $prenom,
+                ':username' => $username,
+                ':email' => $courriel,
+                ':mdp' => $pass,
+                ':birthdate' => $birthdate,
+                ':roles' => 1 //1 correspond au rôle d'utilisateur de base, un utilisateur avec un rôle 0 est administrateur
+			));
+
+            
+            //on recupere l'id de l'utilisateur
+            $id = $db->lastInsertId();
+
+            //on crée la session
+            $_SESSION["watibuveur"] = array(
+                                        "id" => $id, 
+                                        "genre" => $genre, 
+                                        "nom" => $nom, 
+                                        "prenom" => $prenom, 
+                                        "username" => $username, 
+                                        "email" => $courriel, 
+                                        "birthdate" => $birthdate, 
+                                        "roles" => 1
+                                    );
+
+            //on définit l'id de session
+            $id_user = $_SESSION["watibuveur"]["id"];
+
+            //on crée les cookies
+            //require_once '../php_files/set_cookie.php';
+
+            //on crée les cookies avec la fonction setcookie (validité d'un an)
+            setcookie("id",$_SESSION['watibuveur']['id'],time() + (365*24*3600),'/', '',false,true);
+            setcookie("genre",$_SESSION['watibuveur']['genre'],time() + (365*24*3600),'/', '',false,true);
+            setcookie("nom",$_SESSION['watibuveur']['nom'],time() + (365*24*3600),'/', '',false,true);
+            setcookie("prenom",$_SESSION['watibuveur']['prenom'],time() + (365*24*3600),'/', '',false,true);
+            setcookie("username",$_SESSION['watibuveur']['username'],time() + (365*24*3600),'/', '',false,true);
+            setcookie("email",$_SESSION['watibuveur']['email'],time() + (365*24*3600),'/', '',false,true);
+            setcookie("birthdate",$_SESSION['watibuveur']['birthdate'],time() + (365*24*3600),'/', '',false,true);
+            setcookie("role",$_SESSION['watibuveur']['roles'],time() + (365*24*3600),'/', '',false,true);
+            
+            //on redirige
+            header("Location: /templates/page_compte.php");
+        }
+        catch(Exception $e){ //en cas d'erreur
+			die("Erreur : " . $e->getMessage());
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,15 +102,15 @@ require_once '../db/verif_session_conn_insc.php'; //verification de la session
     <link rel="stylesheet" href="../styles/compte.css">
     <link rel="stylesheet" href="../styles/general/style_commun.css">
     <link rel="icon" href="../img/logo2.webp">
-    <title>Mon compte</title>
+    <title>Inscription</title>
 </head>
 <body>
     <header>
         <a href="../index.php">La descente</a>
         <a href="connexion.php">Compte</a>
     </header>
-    <?php require_once "../files/menu.html"; ?>
-    <form class="formLetter" method="post">
+    <?php require_once '../struct_files/menu.html'; ?>
+    <form class="formLetter" method="post" action="#">
         <fieldset><!--On regroupe les champs du formulaire-->  
             <legend>Creer Votre Compte</legend>
             <label>Genre:</label>
@@ -30,110 +118,35 @@ require_once '../db/verif_session_conn_insc.php'; //verification de la session
             <label for="genre">Madame</label>
             <input type="radio" name="genre" id="genre" value="Mr" required="required">
             <label for="genre">Monsieur</label>
-            <br><br>
+            <br>
             <label for="nom">Nom :</label >
             <input type="text" name="nom" id="nom" placeholder="Votre nom" required="required">
-            <br><br>
+            <br>
             <label for="prenom">Prénom :</label >
             <input type="text" name="prenom" id="prenom" placeholder="Votre prénom" required="required">
-            <br><br>
+            <br>
             <label for="username">Username :</label >
             <input type="text" name="username" id="username" placeholder="Votre username" required="required">
-            <br><br>
+            <br>
             <label for="courriel">Email : </label >
             <input type="email" name="courriel" id="courriel" placeholder="nom.prenom@student.junia.com" required="required">
-            <br><br>
+            <br>
             <label for="mdp">Mot de passe </label>
             <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe" required="required">
-            <br><br>
+            <br>
             <label for="start">Date de naissance: </label>
             <input type="date" id="start" name="start" min="1910-01-01" max="2004-12-31" required="required">
-            <br><br>
+            <br>
             <label class="point">J'accepte les conditions générales d'inscription : </label>
             <input type="checkbox" id="conditions" name="conditions" required="required"><!--checkbox permet d'afficher une case a cocher--> 
-            <br><br>
+            <br>
             <div class="btn">
-                <button type="submit" class="signupbtn">S'inscrire</button>
+                <button type="submit" class="signupbtn" name="Inscription" value="Inscription">S'inscrire</button>
                 <button type="button" class="inscbtn" onclick="window.location.href='connexion.php';">Connexion</button>
             </div>
-            <p class='erreur-pseudo'><br>Erreur, ce pseudo est déjà utilisé</p>
-            <p class='erreur-email'><br>Erreur, cet email est déjà utilisé</p>
+            <p class='erreur-pseudo'>Erreur, ce pseudo est déjà utilisé</p>
+            <p class='erreur-email'>Erreur, cet email est déjà utilisé</p>
         </fieldset>
     </form>
 </body>
 </html>
-<?php
-//on verifie que le formulaire est complet
-if (!empty($_POST))
-{
-    if (isset($_POST["genre"], $_POST["nom"], $_POST["prenom"], $_POST["username"], $_POST["courriel"], $_POST["mdp"], $_POST["start"], $_POST["conditions"]) && !empty($_POST["genre"]) && !empty($_POST["nom"]) && !empty($_POST["prenom"]) && !empty($_POST["username"]) && !empty($_POST["courriel"]) && !empty($_POST["mdp"]) && !empty($_POST["start"] && !empty($_POST["conditions"])))
-    {
-        //formulaire complet
-        //on protège les données
-        $genre = strip_tags($_POST["genre"]);
-        $nom = strip_tags($_POST["nom"]);
-        $prenom = strip_tags($_POST["prenom"]);
-        $username = strip_tags($_POST["username"]);
-
-        //on vérifie que l'username n'existe pas déjà en bdd
-        $verif_requete = "SELECT * FROM users WHERE username=?";
-        // Process the query
-        $verif_query = $db->prepare($verif_requete);
-        $verif_query->execute([$username]);
-        if($verif_query->fetch()){
-            die("<style>.erreur-pseudo{ display: block; }</style>"); //on rend le message d'erreur visible, et on stoppe le traitement des données
-        }
-
-        //on vérifie que l'entrée "email" est bien de type email, sinon on retourne une erreur
-        if (!filter_var($_POST["courriel"], FILTER_VALIDATE_EMAIL))
-        {
-            die("Adresse mail incorrecte"); //on stoppe le traitement des données
-        }
-        $email = $_POST["courriel"];
-
-        //on vérifie que l'adresse mail n'existe pas déjà en bdd
-        $verif_requete2 = "SELECT * FROM users WHERE email=?";
-        // Process the query
-        $verif_query2 = $db->prepare($verif_requete2);
-        $verif_query2->execute([$email]);
-        if($verif_query2->fetch()){
-            die("<style>.erreur-email{ display: block; }</style>"); //on rend le message d'erreur visible, et on stoppe le traitement des données
-        }
-
-        //on hashe le mdp
-        $pass = password_hash($_POST["mdp"], PASSWORD_DEFAULT);
-        //traitement date de naissance
-        $birthdate = date('Y-m-d', strtotime($_POST['start']));
-        //on enregistre en bdd
-        require_once '../db/connect_db.php'; //connexion a la bdd
-        $sql = "INSERT INTO users(`genre`, `nom`, `prenom`, `username`, `email`, `password`, `datebirth`, `roles`) VALUES(:genre, :nom, :prenom, :username, :email, :pass, :datebirth, :roles)";
-        //préparation de la requête sql
-        $query = $db->prepare($sql);
-        $query->bindValue(":genre", $genre, PDO::PARAM_STR);
-        $query->bindValue(":nom", $nom, PDO::PARAM_STR);
-        $query->bindValue(":prenom", $prenom, PDO::PARAM_STR);
-        $query->bindValue(":username", $username, PDO::PARAM_STR);
-        $query->bindValue(":email", $email, PDO::PARAM_STR);
-        $query->bindValue(":pass", $pass, PDO::PARAM_STR);
-        $query->bindValue(":datebirth", $birthdate, PDO::PARAM_STR);
-        $query->bindValue(":roles", '[\"ROLE_USER\"]', PDO::PARAM_STR);
-        $query->execute();
-
-        //on recupere l'id de l'utilisateur
-        $id = $db->lastInsertId();
-
-        //on crée la session
-        $_SESSION["watibuveur"] = ["id" => $id, "genre" => $genre, "nom" => $nom, "prenom" => $prenom, "username" => $username, "email" => $_POST["email"], "birthdate" => $birthdate, "roles" => ["ROLE_USER"]];
-
-        //on définit l'id de session
-        $id_user = $_SESSION['watibuveur']['id'];
-        
-        //on redirige
-        header("Location: /templates/page_compte.php");
-    }
-    else
-    {
-        echo "<div class='erreur'>Attention, tout les champs sont obligatoires</div>";
-    }
-}
-?>

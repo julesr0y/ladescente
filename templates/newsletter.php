@@ -1,9 +1,8 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-require_once '../db/connect_db.php'; //connexion a la bdd
-require_once '../db/verif_session.php'; //verification de la session
+session_start(); //demarrage de la session
+require_once '../php_files/fonctions.php'; //importation des fonctions
+verif_cookie(); //on vérifie si les cookies existent
+is_connected_global(); //on vérifie que l'utilisateur est connecté
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,19 +16,7 @@ require_once '../db/verif_session.php'; //verification de la session
     <title>Newsletter</title>
 </head>
 <body>
-    <header>
-        <a href="../index.php">La descente</a>
-        <?php
-        if(verification_session() == true){
-            $account_name = $_SESSION["watibuveur"]["genre"]." ".$_SESSION["watibuveur"]["nom"]." ".$_SESSION["watibuveur"]["prenom"];
-            echo "<a href='page_compte.php'>$account_name</a>";
-        }
-        else{
-            echo "<a href='connexion.php'>Compte</a>";
-        }
-        ?>
-    </header>
-    <?php require_once "../files/menu.html"; ?>
+    <?php require_once '../struct_files/header_menu.php'; //importation du header et du nav ?>
     <form class="formLetter" method="post" action="#"> <!--"On crée un formulaire" -->
         <fieldset>  
             <legend class="legende">Vos informations</legend>
@@ -54,37 +41,24 @@ require_once '../db/verif_session.php'; //verification de la session
                 <label class="point">J'accepte les <a href="conditions.php" class="condtion">Conditions d'inscriptions à la Newsletter</a></label>
                     <input type="checkbox" id="conditions" name="conditions" required="required">
                 <br><br>
-                <button type="submit" class="signupbtn">S'inscrire</button>
+                <button type="submit" class="signupbtn" name="inscrire_n">S'inscrire</button>
                 <p class='erreur'><br>Attention, cet email est déjà inscrit</p>
+                <p class="succes"><br>Inscription réalisée avec succès</p>
                 <img src="../img/ctlnewsletter.gif" alt="cocktail" class="cocktailnews"><!--"On ajoute une image afin de remplir un petit peu"-->
         </fieldset>
     </form>
-    <main>
-        <div class="main">
-            <p>La descente est un site qui vous permet de découvrir des recettes de cocktail mais aussi d'en échanger avec d'autres utilisateurs</p>
-            <br>
-            <p>En vous inscrivant à notre newsletter vous allez recevoir de temps en temps des mails d'information</p>
-        </div>        
-    </main>
 </body>
 </html>
 <?php
-//on verifie que le formulaire est complet
-if (!empty($_POST))
-{
-    if (isset($_POST["genre"], $_POST["nom"], $_POST["prenom"], $_POST["courriel"], $_POST["start"], $_POST["conditions"]) && !empty($_POST["genre"]) && !empty($_POST["nom"]) && !empty($_POST["prenom"]) && !empty($_POST["courriel"]) && !empty($_POST["start"] && !empty($_POST["conditions"])))
-    {
-        //formulaire complet
-        //on protège les données
-        $genre = strip_tags($_POST["genre"]);
-        $nom = strip_tags($_POST["nom"]);
-        $prenom = strip_tags($_POST["prenom"]);
-        //on vérifie que l'entrée "email" est bien de type email, sinon on retourne une erreur
-        if (!filter_var($_POST["courriel"], FILTER_VALIDATE_EMAIL))
-        {
-            die("Adresse mail incorrecte");
-        }
-        $email = $_POST["courriel"];
+if (isset($_POST["inscrire_n"])) { //si le formulaire concerné existe
+    try{
+        require_once '../php_files/connect_db.php'; //connexion a la bdd
+        //validation des données
+        $genre = valider_donnees($_POST["genre"]);
+        $nom = valider_donnees($_POST["nom"]);
+        $prenom = valider_donnees($_POST["prenom"]);
+        $email = valider_donnees($_POST["courriel"]);
+        $birthdate = valider_donnees($_POST["start"]);
 
         //on vérifie que l'adresse mail n'existe pas déjà en bdd
         $verif_requete = "SELECT * FROM newsletter WHERE email=?";
@@ -95,9 +69,8 @@ if (!empty($_POST))
             die("<style>.erreur{ display: block; }</style>"); //on rend le message d'erreur visible, et on stoppe le traitement des données
         }
 
-        //si c'est bon, on continue a traiter les données
         //traitement date de naissance
-        $birthdate = date('Y-m-d', strtotime($_POST['start']));
+        $birthdate = date('Y-m-d', strtotime($birthdate));
         //on enregistre en bdd
         $sql = "INSERT INTO newsletter(`genre`, `nom`, `prenom`, `email`, `naissance`) VALUES(:genre, :nom, :prenom, :email, :naissance)";
         //préparation de la requête sql
@@ -109,12 +82,11 @@ if (!empty($_POST))
         $query->bindValue(":naissance", $birthdate, PDO::PARAM_STR);
         $query->execute();
 
-        //on redirige
-        header("Location: /templates/newsletter.php");
+        //fin du traitement
+        die("<style>.succes{ display: block; }</style>"); //on rend le message de succès visible
     }
-    else
-    {
-        echo "<div class='erreur'>Attention, tous les champs sont obligatoires</div>";
+    catch(Exception $e){ //en cas d'erreur
+        die("Erreur : " . $e->getMessage());
     }
 }
 ?>

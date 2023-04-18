@@ -59,6 +59,12 @@ fieldset{
     display: none; /*par défaut, le message d'erreur est invisible*/
 }
 
+.succes{
+    text-align: center;
+    color: green;
+    display: none; /*par défaut, le message de succès est invisible*/
+}
+
 @media only screen and (600px<=width) {
     /* tablette
     */

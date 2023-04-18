@@ -1,6 +1,8 @@
 <?php
-require_once '../db/connect_db.php'; //connexion a la bdd
-require_once '../db/verif_session.php'; //verification de la session
+session_start(); //demarrage de la session
+require_once '../php_files/fonctions.php'; //importation des fonctions
+verif_cookie(); //on vérifie si les cookies existent
+is_connected_global(); //on vérifie que l'utilisateur est connecté
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,19 +16,7 @@ require_once '../db/verif_session.php'; //verification de la session
     <title>Classements</title>
 </head>
 <body>
-    <header>
-        <a href="../index.php">La descente</a>
-        <?php
-        if(verification_session() == true){
-            $account_name = $_SESSION["watibuveur"]["genre"]." ".$_SESSION["watibuveur"]["nom"]." ".$_SESSION["watibuveur"]["prenom"];
-            echo "<a href='page_compte.php'>$account_name</a>";
-        }
-        else{
-            echo "<a href='connexion.php'>Compte</a>";
-        }
-        ?>
-    </header>
-    <?php require_once "../files/menu.html"; ?>
+    <?php require_once '../struct_files/header_menu.php'; //importation du header et du nav ?>
     <main class="partie_classements"> <!--conteneur principal des sous conteneurs de classements-->
         <div class="conteneur_classment">
             <h2>La partie classement est décédée</h2>

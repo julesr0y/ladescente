@@ -1,7 +1,5 @@
 .formLetter{/*disposition des elements dans le formulaire*/
-    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     padding-top: 5vh;
@@ -15,6 +13,9 @@ fieldset{
     padding: 1vw;
 }
 /*ici, on définit la taille des différents éléments du formulaire*/
+.formLetter #prenom,#nom,#username,#courriel,#mdp,#start,#conditions{
+    margin-top: 3%;
+}
 .formLetter #prenom,#nom,#courriel,#start,#start{
     height: 4vw;
 }
@@ -34,6 +35,9 @@ fieldset{
     cursor: pointer;
     width: 30%;
     border-radius: 5px;
+}
+.btn{
+    margin: 3%;
 }
 .signupbtn:active {
     opacity: 0.5;
@@ -82,6 +86,12 @@ fieldset{
     display: none; /*par défaut, le message d'erreur est invisible*/
 }
 
+.erreur{
+    text-align: center;
+    color: red;
+    display: none; /*par défaut, le message d'erreur est invisible*/
+}
+
 @media only screen and (600px<=width) {
     /*tablette*/
     /*création de l'animation sous les liens de nav*/
@@ -91,6 +101,9 @@ fieldset{
     }
 
     /*ici, on définit la taille des différents éléments du formulaire*/
+    .formLetter #prenom,#nom,#username,#courriel,#mdp,#start,#conditions{
+        margin-top: 2%;
+    }
     .formLetter #prenom,#nom,#courriel,#start,#start{
         height: 2vw;
     }
@@ -102,6 +115,10 @@ fieldset{
     }
     .formLetter #start{
         width: 7vw;
+    }
+
+    .btn {/*style du bouton*/
+        margin: 2%;
     }
 }
 

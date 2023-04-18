@@ -1,15 +1,10 @@
 <?php
 session_start(); //démarrage de la session
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-require_once '../db/connect_db.php'; //connexion a la bdd
-require_once '../db/verif_admin.php'; //on vérifie que l'user est admin
-?>
- <?php
-    $sql = "SELECT * FROM `recipes` WHERE `approved` = 0 ORDER BY `id` DESC"; //récupération des recettes non approuvées
-    $requete = $db->query($sql);
-    $recipes = $requete->fetchAll();
+require_once '../../php_files/connect_db.php'; //connexion a la bdd
+require_once '../../php_files/fonctions.php'; //importation des fonctions
+verif_cookie(); //on vérifie si les cookies existent
+is_connected_global(); //on vérifie que l'utilisateur est connecté
+is_admin(); //on vérifie que l'utilisateur soit un admin
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,9 +12,9 @@ require_once '../db/verif_admin.php'; //on vérifie que l'user est admin
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-witdh, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../styles/approve_recipe.css">
-    <link rel="stylesheet" href="../styles/general/style_commun.css">
-    <link rel="icon" href="../img/logo2.webp">
+    <link rel="stylesheet" href="../../styles/approve_recipe.css">
+    <link rel="stylesheet" href="../../styles/general/style_commun.css">
+    <link rel="icon" href="../../img/logo2.webp">
     <title>Recettes à approuver</title>
 </head>
 <body>
@@ -34,15 +29,23 @@ require_once '../db/verif_admin.php'; //on vérifie que l'user est admin
         <h3><? echo $_SESSION["watibuveur"]["prenom"]." ".$_SESSION["watibuveur"]["nom"]." - Administrateur"; ?></h3>
     </div>
     <main>
+        <?php
+            $requete = "SELECT * FROM recipes WHERE approved = 0 ORDER BY id DESC"; //requete
+            $reqprep = $db->prepare($requete); //preparation
+            $reqprep->execute(); //execution
+            $recipes = $reqprep->fetchAll(); //récupération des recettes non approuvées uniquement
+        ?>
         <div class="prepost">
             <?php if($recipes == null){echo "<br><br><h2>Aucune recette à approuver <span style='color: green;'>#win</span></h2>";} ?>
             <?php foreach($recipes as $recipe): ?>
                 <div class="post">
                     <p class="titre_recette"><? echo $recipe["nom"]; ?></p>
-                    <p class="descript"><? echo $recipe["description"]; ?></p>
+                    <p class="descript"><? echo $recipe["descr"]; ?></p>
                     <br><br>
                     <ul class="ingredient">
                         <li><strong>Ingrédients:</strong></li>
+                        <!-- si l'élément récupéré n'est pas vide (null), on l'affiche grâce à echo -->
+                        <!-- sinon, on ne fait rien -->
                         <?php if($recipe["ingredient1"] != null){echo "<li>".$recipe["ingredient1"]."</li>";} ?>
                         <?php if($recipe["ingredient2"] != null){echo "<li>".$recipe["ingredient2"]."</li>";} ?>
                         <?php if($recipe["ingredient3"] != null){echo "<li>".$recipe["ingredient3"]."</li>";} ?>
@@ -56,6 +59,8 @@ require_once '../db/verif_admin.php'; //on vérifie que l'user est admin
                     </ul>
                     <ul class="preparation">
                         <li><strong>Préparation:</strong></li>
+                        <!-- si l'élément récupéré n'est pas vide (null), on l'affiche grâce à echo -->
+                        <!-- sinon, on ne fait rien -->
                         <?php if($recipe["preparation1"] != null){echo "<li>".$recipe["preparation1"]."</li>";} ?>
                         <?php if($recipe["preparation2"] != null){echo "<li>".$recipe["preparation2"]."</li>";} ?>
                         <?php if($recipe["preparation3"] != null){echo "<li>".$recipe["preparation3"]."</li>";} ?>
@@ -76,8 +81,8 @@ require_once '../db/verif_admin.php'; //on vérifie que l'user est admin
                     }
                     ?>
                     <div class="approvebox">
-                        <a href="approvment.php?id=<?= $recipe["id"] ?>" style="color: green;">Approuver</a>
-                        <a href="delete.php?id=<?= $recipe["id"] ?>" style="color: red;">Refuser</a>
+                        <a href="approvment.php?idmr=<?= $recipe["id"] ?>" style="color: green;">Approuver</a>
+                        <a href="refuse_recipe.php?idsr=<?= $recipe["id"] ?>" style="color: red;">Refuser</a>
                     </div>
                     <br><br>
                 </div>

@@ -1,6 +1,8 @@
 <?php
-require_once '../db/connect_db.php'; //connexion a la bdd
-require_once '../db/verif_session.php'; //verification de la session
+session_start(); //demarrage de la session
+require_once '../php_files/fonctions.php'; //importation des fonctions
+verif_cookie(); //on vérifie si les cookies existent
+is_connected_global(); //on vérifie que l'utilisateur est connecté
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,44 +16,9 @@ require_once '../db/verif_session.php'; //verification de la session
     <title>Recettes</title>
 </head>
 <body>
-    <header>
-        <a href="../index.php">La descente</a>
-        <?php
-        if(verification_session() == true){
-            $account_name = $_SESSION["watibuveur"]["genre"]." ".$_SESSION["watibuveur"]["nom"]." ".$_SESSION["watibuveur"]["prenom"];
-            echo "<a href='page_compte.php'>$account_name</a>";
-        }
-        else{
-            echo "<a href='connexion.php'>Compte</a>";
-        }
-        ?>
-    </header>
-    <?php require_once "../files/menu.html"; ?>
+    <?php require_once '../struct_files/header_menu.php'; //importation du header et du nav ?>
     <div id="ent">
         <h1>Les Recettes</h1>
-            <!--Pour la v2-->
-            <!--<h2>Pour maintenant</h2>
-            <p>Vous devez rentrer ce que vous avez chez vous et nous vous proposons des recetttes</p>
-            <label>Vous voulez consommer de l'alcool :</label >
-                <input type="radio" name="alcool" id="alcooloui">  
-                    <label for="alcooloui">Oui</label>
-                <input type="radio" name="alcool" id="alcoolnon" > 
-                    <label for="alcooloui">Non</label>
-            <br><br>
-            <label>Vous voulez consommer de l'alcool :</label >
-                <input type="radio" name="temp" id="tempChaud">  
-                    <label for="tempChaud">Chaud</label>
-                <input type="radio" name="alcool" id="tempFroid" > 
-                    <label for="tempFroid">Froid</label>
-            <br><br>
-            <ul>Type d'alcool : 
-                <li>Vodka</li>
-                <li>Vodka</li>
-                <li>Vodka</li>
-                <li>Vodka</li>
-                <li>Vodka</li>
-                <li>Vodka</li>
-            </ul>-->
             <h2>Découvertes</h2>
             <p></p><!--Description de la rublique-->
             <p>Nous vous proposons une large gamme de recette.</p>
@@ -62,16 +29,10 @@ require_once '../db/verif_session.php'; //verification de la session
                 <a href="#exotiques"><h4>-Les Exotiques</h4></a>
             <a href="#rhumarrange"><h3>Rhum Arrangé</h3></a>
             <p>Nous vous proposons une large gamme de rhum Arrangé que vous pouvez preparer a la maison.</p><!--Description de la rublique-->
-            <!--<h2>Le coin dégustation</h2>
-            <p>Nous vous proposons une large gamme de vin.</p>
-            <h3>Les vins rouges</h3>
-            <h3>Les vins blancs</h3>
-            <h3>Les vins rosés</h3>
-            -->
             <?php
-            $sql = "SELECT * FROM `recipes` WHERE `approved` = 1 ORDER BY `id` DESC"; //récupération des recettes approuvées
-            $requete = $db->query($sql);
-            $recipes = $requete->fetchAll();
+            require_once '../php_files/connect_db.php';
+            $req = $db->query("SELECT * FROM recipes WHERE approved = 1 ORDER BY id DESC"); //requete et preparation
+            $recipes = $req->fetchAll(); //récupération des recettes approuvées uniquement
             ?>
             <br>
             <h3 class="type" id="new">Nouvelles Recettes</h3>
@@ -79,10 +40,12 @@ require_once '../db/verif_session.php'; //verification de la session
                 <?php foreach($recipes as $recipe): ?>
                     <div class="post">
                         <p class="titre"><? echo $recipe["nom"]; ?></p>
-                        <p class="descript"><? echo $recipe["description"]; ?></p>
+                        <p class="descript"><? echo $recipe["descr"]; ?></p>
                         <br><br>
                         <ul class="ingredient">
                             <li><strong>Ingrédients:</strong></li>
+                            <!-- si l'élément récupéré n'est pas vide (null), on l'affiche grâce à echo -->
+                            <!-- sinon, on ne fait rien -->
                             <?php if($recipe["ingredient1"] != null){echo "<li>".$recipe["ingredient1"]."</li>";} ?>
                             <?php if($recipe["ingredient2"] != null){echo "<li>".$recipe["ingredient2"]."</li>";} ?>
                             <?php if($recipe["ingredient3"] != null){echo "<li>".$recipe["ingredient3"]."</li>";} ?>
@@ -96,6 +59,8 @@ require_once '../db/verif_session.php'; //verification de la session
                         </ul>
                         <ul class="preparation">
                             <li><strong>Préparation:</strong></li>
+                            <!-- si l'élément récupéré n'est pas vide (null), on l'affiche grâce à echo -->
+                            <!-- sinon, on ne fait rien -->
                             <?php if($recipe["preparation1"] != null){echo "<li>".$recipe["preparation1"]."</li>";} ?>
                             <?php if($recipe["preparation2"] != null){echo "<li>".$recipe["preparation2"]."</li>";} ?>
                             <?php if($recipe["preparation3"] != null){echo "<li>".$recipe["preparation3"]."</li>";} ?>

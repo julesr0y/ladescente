@@ -81,7 +81,6 @@ main{/*placement des éléments dans main avec grid*/
         grid-template-areas: "txt1 img1"
                              "img2 txt2"
                              "txt3 img3";
-        row-gap: 2vh;
     }
     
     .txt1{

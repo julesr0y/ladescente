@@ -1,0 +1,32 @@
+.banniere_cookie {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #000;
+    color: #fff;
+    z-index: 9999;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+.banniere_cookie_texte {
+    width: 80%;
+}
+.banniere_cookie_bouton {
+    width: 20%;
+    text-align: right;
+}
+.banniere_cookie_bouton a {
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.banniere_cookie_bouton a:hover {
+    background-color: #fff;
+    color: #000;
+}

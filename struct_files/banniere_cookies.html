@@ -1,0 +1,51 @@
+<div class="container_banniere">
+    <div class="background"></div>
+    <div class="banniere_cookie">
+        <h3 style="text-align: left;">Accepter les shooters ?</h3>
+        <br>
+        <p>Les cookies, c'est bien, les shooters, c'est meilleur. La Descente les utilise pour vous offrir une meilleure expérience de navigation. En poursuivant, vous acceptez l'utilisation des shooters. Pour en savoir plus, consultez notre <a href="http://www.lesite.com/mentions-legales.html" target="_blank">politique de confidentialité</a> qui n'existe pas.</p>
+        <br>
+        <div class="banniere_cookie_bouton">
+            <a href="../php_files/accept_cookies.php">J'accepte</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container_banniere{
+        display: none;
+    }
+
+    .background{
+        position: absolute;
+        background-color: #000;
+        opacity: 0.5;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+    }
+
+    .banniere_cookie {
+        color: black;
+        z-index: 2;
+        opacity: 1;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .banniere_cookie_bouton a {
+        background-color:black;
+        color: white;
+        padding: 5px 10px;
+        cursor: pointer;
+        width: 30%;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+</style>

@@ -1,6 +1,8 @@
 <?php
-require_once '../db/connect_db.php'; //connexion a la bdd
-require_once '../db/verif_session_pagecompte.php'; //verification de la session
+session_start(); //demarrage de la session
+require_once '../php_files/fonctions.php'; //importation des fonctions
+verif_cookie(); //on vérifie si les cookies existent
+is_connected_pagecompte(); //on vérifie que l'utilisateur est connecté
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,16 +19,11 @@ require_once '../db/verif_session_pagecompte.php'; //verification de la session
 <header>
         <a href="../index.php">La descente</a>
         <?php
-        if(verification_session_pagecompte() == true){
             $account_name = $_SESSION["watibuveur"]["genre"]." ".$_SESSION["watibuveur"]["nom"]." ".$_SESSION["watibuveur"]["prenom"];
             echo "<a href='page_compte.php'>$account_name</a>";
-        }
-        else{
-            echo "<a href='connexion.php'>Compte</a>";
-        }
         ?>
     </header>
-    <?php require_once "../files/menu.html"; ?>
+    <?php require_once '../struct_files/menu.html'; ?>
     <h2 class="titre">Bienvenue sur votre compte</h2>
     <br><br>
     <main>
@@ -51,13 +48,13 @@ require_once '../db/verif_session_pagecompte.php'; //verification de la session
         </div>
         <div class="droite">
             <?php
-                if($_SESSION['watibuveur']['roles'] == '[\"ROLE_ADMIN\"]'){
-                    echo "<br><a href='administration.php' style='color: red; text-decoration: none;'>Accéder à l'administration</a>";
+                if(is_admin()){ //si l'utilisateur est un administrateur, on lui propose le lien pour accéder à la partie d'administration du site
+                    echo "<br><a href='admin/administration.php' style='color: red; text-decoration: none;'>Accéder à l'administration</a>";
                 }
             ?>
             <br><br>
             <a href="ajout_recette.php" style="color:black; text-decoration: none;">Proposer une recette</a><br><br>
-            <a href="../db/deconnexion.php" style="color:black; text-decoration: none;">Deconnexion</a>
+            <a href="../php_files/deconnexion.php" style="color:black; text-decoration: none;">Deconnexion</a>
         </div>
     </main>
 </body>

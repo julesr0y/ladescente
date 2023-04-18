@@ -1,0 +1,35 @@
+.elems{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 80vw;
+    border: 2px solid black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    background-color: #afcfd9;
+}
+
+.titre{
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+@media only screen and (600px<=width) {
+    /* tablette
+    */
+}
+
+@media only screen and (768px<=width) {
+    /* ordinateur
+    */
+    .elems{
+        width: 30vw;
+    }
+}
