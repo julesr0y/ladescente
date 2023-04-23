@@ -2,7 +2,7 @@
 session_start();
 require_once '../php_files/fonctions.php'; //importation des fonctions
 require '../struct_files/banniere_cookies.html'; //importation de la banniere de cookies
-//authorized_cookies(); //on vérifie si les cookies sont autorisés
+authorized_cookies(); //on vérifie si les cookies sont autorisés
 verif_cookie(); //on vérifie si les cookies existent
 is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pas connecté
 ?>
@@ -69,8 +69,6 @@ is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pa
                 "birthdate" => $user["datebirth"],
                 "roles" => $user["roles"],
             );
-
-            //require_once('../php_files/set_cookie.php'); //on crée les cookies
             
             //on crée les cookies avec la fonction setcookie (validité d'un an)
             setcookie("id",$_SESSION['watibuveur']['id'],time() + (365*24*3600),'/', '',false,true);

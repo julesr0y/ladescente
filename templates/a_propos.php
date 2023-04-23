@@ -27,19 +27,14 @@ is_connected_global(); //on vérifie que l'utilisateur est connecté
                 <li>Classements des alcools</li>
                 <li>Inscription à la newsletter</li>
                 <li>Page à propos</li>
-            </ul>
-        </fieldset >
-        <fieldset>
-            <legend>Futures mises à jour</legend>
-            <ul>
                 <li>Ajouts de nouvelles recettes</li>
                 <li>Créations de comptes personnelles </li>
                 <li>Inscription à la newsletter </li>
                 <li>Préférences</li>
                 <li>Commentaires</li>
                 <li>Possibilité pour les utilisateurs de proposer de nouvelles recettes</li>
-             </ul>
-        </fieldset>
+            </ul>
+        </fieldset >
     </div>
     <fieldset >
        <legend>Nous contacter</legend>

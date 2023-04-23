@@ -53,6 +53,7 @@ is_connected_pagecompte(); //on vérifie que l'utilisateur est connecté
                 }
             ?>
             <br><br>
+            <a href="modifier_compte.php" style="color:black; text-decoration: none;">Modifier les informations du compte</a><br><br>
             <a href="ajout_recette.php" style="color:black; text-decoration: none;">Proposer une recette</a><br><br>
             <a href="../php_files/deconnexion.php" style="color:black; text-decoration: none;">Deconnexion</a>
         </div>

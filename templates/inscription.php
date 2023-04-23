@@ -72,9 +72,6 @@ is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pa
             //on définit l'id de session
             $id_user = $_SESSION["watibuveur"]["id"];
 
-            //on crée les cookies
-            //require_once '../php_files/set_cookie.php';
-
             //on crée les cookies avec la fonction setcookie (validité d'un an)
             setcookie("id",$_SESSION['watibuveur']['id'],time() + (365*24*3600),'/', '',false,true);
             setcookie("genre",$_SESSION['watibuveur']['genre'],time() + (365*24*3600),'/', '',false,true);
