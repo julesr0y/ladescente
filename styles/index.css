@@ -1,0 +1,130 @@
+main{/*placement des éléments dans main avec grid*/
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 15vh;
+    grid-template-areas: "txt1"
+                         "img1"
+                         "txt2"
+                         "img2"
+                         "txt3"
+                         "img3";
+}
+
+.txt1{
+    grid-area: txt1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    height: 15vh;
+}
+
+.img1{
+    grid-area: img1;
+    background-image: url(../img/logo2.webp); /*insertion image header*/
+    background-size: cover;
+    background-position-y: center;
+    height: 15vh;
+}
+
+.txt2{
+    grid-area: txt2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    height: 15vh;
+}
+
+.img2{
+    grid-area: img2;
+    background-image: url(../img/bieres.webp);
+    background-size: cover;
+    background-position-y: center;
+    height: 15vh;
+}
+
+.txt3{
+    grid-area: txt3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    height: 15vh;
+}
+
+.img3{
+    grid-area: img3;
+    background-image: url(../img/shakers.webp);
+    background-size: cover;
+    background-position-y: center;
+    height: 15vh;
+}
+
+@media only screen and (600px<=width) {
+    /* tablette
+    */
+
+    /*création de l'animation sous les liens de nav*/
+}
+
+@media only screen and (768px<=width) {
+    /* ordinateur
+    */
+    main{/*changement de la disposition des éléments de main avec grid*/
+        display: grid;
+        grid-template-rows: 30vh 30vh 30vh;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "txt1 img1"
+                             "img2 txt2"
+                             "txt3 img3";
+    }
+    
+    .txt1{
+        grid-area: txt1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .img1{
+        grid-area: img1;
+        height: 30vh;
+        background-size: cover;
+        background-position-y: center;
+    }
+    
+    .txt2{
+        grid-area: txt2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .img2{
+        grid-area: img2;
+        height: 30vh;
+        background-size: cover;
+        background-position-y: center;
+    }
+    
+    .txt3{
+        grid-area: txt3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .img3{
+        grid-area: img3;
+        height: 30vh;
+        background-size: cover;
+        background-position-y: 3%;
+    }
+}

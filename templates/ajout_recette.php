@@ -111,7 +111,7 @@ $id_user = get_user_id(); //on récupère l'id de l'utilisateur pour le définir
             :preparation5, :preparation6, :preparation7, :preparation8,
             :conseil, 0, :id_user)"; //on place approved sur 0 par défault (correspond à une recette non approuvée par les administrateurs)
 
-            $req = $db->prepare($sql); //preparation de la requete
+            $req = $conn->prepare($sql); //preparation de la requete
             $req->execute(array( //execution de la requete
                 ":nom" => $_POST["nom"],
                 ":descr" => $_POST["descr"],

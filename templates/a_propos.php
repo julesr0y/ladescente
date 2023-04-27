@@ -47,8 +47,8 @@ is_connected_global(); //on vérifie que l'utilisateur est connecté
             </div>
         </fieldset>
     <footer>
-        <p class="foot_centre1">Auteurs : Simon Leroy, Antonin Dumas, Jules Roy, Maxime Basset</p>
-        <p class="foot_centre2">© La descente™ 2022</p>
+        <p class="foot_centre1">Auteurs: Simon Leroy, Antonin Dumas, Jules Roy, Maxime Basset, Lucas Hu</p>
+        <p class="foot_centre2">© La Descente™ 2022</p>
     </footer>
 </body>
 </html>

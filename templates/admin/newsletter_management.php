@@ -15,11 +15,11 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
     <link rel="stylesheet" href="../../styles/r_n_management.css">
     <link rel="stylesheet" href="../../styles/general/style_commun.css">
     <link rel="icon" href="../../img/logo2.webp">
-    <title>Administration</title>
+    <title>Administration - Newsletter</title>
 </head>
 <body>
     <header>
-        <a href="#">La descente - Admin</a>
+        <a href="../index.php">La Descente - Admin</a>
         <a href="administration.php">Retour</a>
     </header>
     <br>
@@ -31,7 +31,7 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
     </div>
     <?php
         //récupération des inscrits à la newsletter
-        $req = $db->prepare("SELECT * FROM newsletter ORDER BY id DESC"); //préparation de la requete
+        $req = $conn->prepare("SELECT * FROM newsletter ORDER BY id DESC"); //préparation de la requete
         $req->execute(); //execution
         $inscrits = $req->fetchAll(); //resultat
     ?>

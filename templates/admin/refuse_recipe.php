@@ -8,7 +8,7 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
     if(isset($_GET["idsr"])){ //si la donnée concernée existe
         try{
             require_once '../../php_files/connect_db.php'; //connexion a la bdd
-            $req = $db->prepare("DELETE FROM recipes WHERE id = ?"); //requete et preparation
+            $req = $conn->prepare("DELETE FROM recipes WHERE id = ?"); //requete et preparation
             $req->execute([$_GET["idsr"]]); //execution de la requete
             header("Location: /templates/admin/approve_recipe.php"); //on redirige
         }

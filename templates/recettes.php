@@ -31,7 +31,7 @@ is_connected_global(); //on vérifie que l'utilisateur est connecté
             <p>Nous vous proposons une large gamme de rhum Arrangé que vous pouvez preparer a la maison.</p><!--Description de la rublique-->
             <?php
             require_once '../php_files/connect_db.php';
-            $req = $db->query("SELECT * FROM recipes WHERE approved = 1 ORDER BY id DESC"); //requete et preparation
+            $req = $conn->query("SELECT * FROM recipes WHERE approved = 1 ORDER BY id DESC"); //requete et preparation
             $recipes = $req->fetchAll(); //récupération des recettes approuvées uniquement
             ?>
             <br>

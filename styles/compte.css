@@ -2,31 +2,32 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-top: 5vh;
 }
-
-fieldset{
-    padding: 1%;
+fieldset {
     margin: 1%;
     border: 2px solid #afcfd9 ;
     border-radius: 10px;
-    padding: 1vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    width: 75vw;
 }
 /*ici, on définit la taille des différents éléments du formulaire*/
-.formLetter #prenom,#nom,#username,#courriel,#mdp,#start,#conditions{
+.formLetter #genre,#prenom,#nom,#username,#courriel,#mdp,#start,#conditions{
     margin-top: 3%;
 }
-.formLetter #prenom,#nom,#courriel,#start,#start{
-    height: 4vw;
-}
-.formLetter #prenom,#nom{
-    width: 40vw;
-}
-.formLetter #courriel{
-    width: 50vw;
+.formLetter #prenom,#nom,#username,#courriel,#mdp{
+    height: 7vw;
+    width: 100%
 }
 .formLetter #start{
-    width: 30vw;
+    width: 45%;
+}
+.background{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
 }
 .signupbtn {/*style du bouton*/
     background-color:black;
@@ -36,28 +37,14 @@ fieldset{
     width: 30%;
     border-radius: 5px;
 }
-.btn{
-    margin: 3%;
-}
 .signupbtn:active {
     opacity: 0.5;
     color: white;
 }
-.formLetter > label{
-    position: relative;
-    left: 35%;
-}
-.background{
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-}
-
 .btn{ /*disposition des éléments dans la partie bouton (pour connexion.html)*/
     display: flex;
     justify-content: space-evenly;
+    margin: 3%;
 }
 
 .inscbtn {/*style du bouton*/
@@ -71,7 +58,7 @@ fieldset{
 
 .biere{ /*taille du gif animé bière*/
     width: auto;
-    height: 5vh;
+    height: 7vh;
 }
 
 .erreur-pseudo{
@@ -92,36 +79,44 @@ fieldset{
     display: none; /*par défaut, le message d'erreur est invisible*/
 }
 
+.succes{
+    text-align: center;
+    color: green;
+    display: none; /*par défaut, le message de succès est invisible*/
+}
+
+.datenaissance{
+    display: flex;
+    align-items: center;
+}
+
+#start_n{
+    width: 39%;
+}
+
+.cocktailnews{
+    height: 7vh;
+    width: auto;
+    margin-left: auto;
+}
+
 @media only screen and (600px<=width) {
     /*tablette*/
-    /*création de l'animation sous les liens de nav*/
+    fieldset{
+        padding-left: 3vw;
+        padding-right: 3vw;
+        width: 30vw;
+    }
     .biere{ /*taille du gif animé bière*/
         width: auto;
         height: 7vh;
     }
 
     /*ici, on définit la taille des différents éléments du formulaire*/
-    .formLetter #prenom,#nom,#username,#courriel,#mdp,#start,#conditions{
-        margin-top: 2%;
-    }
-    .formLetter #prenom,#nom,#courriel,#start,#start{
+    .formLetter #prenom,#nom,#username,#courriel,#mdp,#start{
         height: 2vw;
     }
-    .formLetter #prenom,#nom{
-        width: 10vw;
-    }
-    .formLetter #courriel{
-        width: 15vw;
-    }
-    .formLetter #start{
-        width: 7vw;
-    }
-
     .btn {/*style du bouton*/
         margin: 2%;
     }
-}
-
-@media only screen and (768px<=width) {
-    /*ordinateur*/
 }

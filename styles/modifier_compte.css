@@ -1,0 +1,11 @@
+.erreur{
+    text-align: center;
+    color: red;
+    display: none; /*par défaut, le message d'erreur est invisible*/
+}
+
+.succes{
+    text-align: center;
+    color: green;
+    display: none; /*par défaut, le message de succès est invisible*/
+}

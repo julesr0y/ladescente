@@ -17,7 +17,7 @@ is_connected_pagecompte(); //on vérifie que l'utilisateur est connecté
 </head>
 <body>
 <header>
-        <a href="../index.php">La descente</a>
+        <a href="index.php">La Descente</a>
         <?php
             $account_name = $_SESSION["watibuveur"]["genre"]." ".$_SESSION["watibuveur"]["nom"]." ".$_SESSION["watibuveur"]["prenom"];
             echo "<a href='page_compte.php'>$account_name</a>";

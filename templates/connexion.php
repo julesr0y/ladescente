@@ -14,24 +14,22 @@ is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pa
     <meta name="viewport" content="width=device-witdh, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../styles/compte.css">
     <link rel="stylesheet" href="../styles/general/style_commun.css">
-    <link rel="icon" href="../img/logo2.webp">
+    <link rel="icon" type="image/x-icon" href="../img/logo.ico">
     <title>Connexion</title>
 </head>
 <body>
     <header>
-        <a href="../index.php">La descente</a>
+        <a href="index.php">La Descente</a>
         <a href="connexion.php">Compte</a>
     </header>
     <?php require_once '../struct_files/menu.html'; ?>
     <form class="formLetter" method="post">
-        <fieldset> <!--On regroupe les champs du formulaire-->
+        <fieldset><!--On regroupe les champs du formulaire-->  
             <legend>Connexion</legend>
-            <label for="courriel">Email :</label>
             <input type="email" name="courriel" id="courriel" placeholder="nom.prenom@student.junia.com" required="required">
-            <br><br>
-            <label for="mdp">Mot de passe :</label>
+            <br>
             <input type="password" id="mdp" name="mdp" placeholder="Votre mot de passe" required="required">
-            <br><br>
+            <br>
             <div class="btn">
                 <button type="submit" class="signupbtn" name="Connexion" value="Connexion">Connexion</button>
                 <img src="../img/biere.gif" alt="Biere" class="biere">
@@ -48,13 +46,17 @@ is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pa
         try{
             require_once '../php_files/connect_db.php'; //connexion a la bdd
 
+            //validation des données
+            $_POST["courriel"] = valider_donnees($_POST["courriel"]);
+            $mdp = valider_donnees($_POST["mdp"]);
+
             //on récupère les données de la bdd associées à l'adresse mail
-            $req = $db->prepare("SELECT * FROM users WHERE email = ?"); //requete et préparation
+            $req = $conn->prepare("SELECT * FROM users WHERE email = ?"); //requete et préparation
             $req->execute([$_POST["courriel"]]); //execution de la requete
             $user = $req->fetch(); //recupération des données
 
             //on verifie le mail et le mot de passe
-            if(!$user || !password_verify($_POST["mdp"], $user["mdp"])){ //si le mot de passe ne correspond pas (on vérifie un mot de passe hashé)
+            if(!$user || $user["mdp"] != $mdp){ //si le mot de passe ne correspond pas (on vérifie un mot de passe hashé)
                 die("<style>.erreur{ display: block }</style>"); //on affiche l'erreur
             }
 
@@ -69,16 +71,9 @@ is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pa
                 "birthdate" => $user["datebirth"],
                 "roles" => $user["roles"],
             );
-            
-            //on crée les cookies avec la fonction setcookie (validité d'un an)
-            setcookie("id",$_SESSION['watibuveur']['id'],time() + (365*24*3600),'/', '',false,true);
-            setcookie("genre",$_SESSION['watibuveur']['genre'],time() + (365*24*3600),'/', '',false,true);
-            setcookie("nom",$_SESSION['watibuveur']['nom'],time() + (365*24*3600),'/', '',false,true);
-            setcookie("prenom",$_SESSION['watibuveur']['prenom'],time() + (365*24*3600),'/', '',false,true);
-            setcookie("username",$_SESSION['watibuveur']['username'],time() + (365*24*3600),'/', '',false,true);
-            setcookie("email",$_SESSION['watibuveur']['email'],time() + (365*24*3600),'/', '',false,true);
-            setcookie("birthdate",$_SESSION['watibuveur']['birthdate'],time() + (365*24*3600),'/', '',false,true);
-            setcookie("role",$_SESSION['watibuveur']['roles'],time() + (365*24*3600),'/', '',false,true);
+
+            //création des cookies
+            require_once '../php_files/set_cookies.php';
             
             //on redirige
             header("Location: /templates/page_compte.php");

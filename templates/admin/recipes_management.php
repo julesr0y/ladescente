@@ -15,11 +15,11 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
     <link rel="stylesheet" href="../../styles/r_n_management.css">
     <link rel="stylesheet" href="../../styles/general/style_commun.css">
     <link rel="icon" href="../../img/logo2.webp">
-    <title>Administration</title>
+    <title>Administration - Recettes</title>
 </head>
 <body>
     <header>
-        <a href="#">La descente - Admin</a>
+        <a href="../index.php">La Descente - Admin</a>
         <a href="administration.php">Retour</a>
     </header>
     <br>
@@ -31,7 +31,7 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
     </div>
     <?php
         //récupération des recettes approuvées
-        $req = $db->prepare("SELECT * FROM recipes WHERE approved = 1 ORDER BY id DESC"); //requete et preparation
+        $req = $conn->prepare("SELECT * FROM recipes WHERE approved = 1 ORDER BY id DESC"); //requete et preparation
         $req->execute(); //execution de la requete
         $recipes = $req->fetchAll(); //resultat de la requete
     ?>

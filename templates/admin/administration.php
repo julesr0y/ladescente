@@ -19,7 +19,7 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
 </head>
 <body>
     <header>
-        <a href="#">La descente - Admin</a>
+        <a href="../index.php">La Descente - Admin</a>
         <a href="../page_compte.php">Retour au site</a>
     </header>
     <br>
@@ -32,7 +32,7 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
         <br><br>
         <?php
             //badge notification recettes non approuvées
-            $req = $db->prepare("SELECT COUNT(*) AS nb_recipes_to_approve FROM recipes WHERE approved = 0"); //requete et preparation
+            $req = $conn->prepare("SELECT COUNT(*) AS nb_recipes_to_approve FROM recipes WHERE approved = 0"); //requete et preparation
             $req->execute(); //execution de la requete
             $nb_recipes_to_approve = $req->fetch(); //récupération du nb de recettes approuvées
             $nb_recipes_to_approve = $nb_recipes_to_approve["nb_recipes_to_approve"]; //récupération du nombre
@@ -51,7 +51,7 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
             <div class="nb_recettes">
                 <?php
                     //statistiques nombre de recettes approuvées
-                    $req = $db->prepare("SELECT COUNT(*) AS nb_recipes FROM recipes WHERE approved = 1"); //requete et préparation
+                    $req = $conn->prepare("SELECT COUNT(*) AS nb_recipes FROM recipes WHERE approved = 1"); //requete et préparation
                     $req->execute(); //execution de la requete
                     $nb_recipes = $req->fetch(); //récupération du nb de recettes approuvées
                     echo $nb_recipes["nb_recipes"];
@@ -61,7 +61,7 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
             <div class="nb_users">
                 <?php
                     //statistiques nombre de comptes créés
-                    $req = $db->prepare("SELECT COUNT(*) AS nb_users FROM users"); //requete et préparation
+                    $req = $conn->prepare("SELECT COUNT(*) AS nb_users FROM users"); //requete et préparation
                     $req->execute(); //execution de la requete
                     $nb_recipes = $req->fetch(); //récupération du nb d'utilisateurs
                     $nb_recipes = $nb_recipes["nb_users"];
@@ -72,7 +72,7 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
             <div class="nb_newsletter">
                 <?php
                     //statistiques nombre d'abonnés à la newsletter
-                    $req = $db->prepare("SELECT COUNT(*) AS nb_newsletter FROM newsletter"); //requete et préparation
+                    $req = $conn->prepare("SELECT COUNT(*) AS nb_newsletter FROM newsletter"); //requete et préparation
                     $req->execute(); //execution de la requete
                     $nb_newsletter = $req->fetch(); //récupération du nb d'utilisateurs
                     $nb_newsletter = $nb_newsletter["nb_newsletter"];

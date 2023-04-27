@@ -15,11 +15,11 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
     <link rel="stylesheet" href="../../styles/approve_recipe.css">
     <link rel="stylesheet" href="../../styles/general/style_commun.css">
     <link rel="icon" href="../../img/logo2.webp">
-    <title>Recettes à approuver</title>
+    <title>Administration - Recettes à approuver</title>
 </head>
 <body>
     <header>
-        <a href="#">La descente - Admin</a>
+        <a href="../index.php">La Descente - Admin</a>
         <a href="administration.php">Retour</a>
     </header>
     <br>
@@ -31,7 +31,7 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
     <main>
         <?php
             $requete = "SELECT * FROM recipes WHERE approved = 0 ORDER BY id DESC"; //requete
-            $reqprep = $db->prepare($requete); //preparation
+            $reqprep = $conn->prepare($requete); //preparation
             $reqprep->execute(); //execution
             $recipes = $reqprep->fetchAll(); //récupération des recettes non approuvées uniquement
         ?>

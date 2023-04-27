@@ -2,10 +2,10 @@
 -- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Mar 25, 2023 at 02:02 PM
--- Server version: 5.7.24
--- PHP Version: 8.0.1
+-- Hôte : localhost:3306
+-- Généré le : jeu. 27 avr. 2023 à 13:13
+-- Version du serveur : 5.7.24
+-- Version de PHP : 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ladescentedb`
+-- Base de données : `ladescentedb`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `newsletter`
+-- Structure de la table `newsletter`
 --
 
 CREATE TABLE `newsletter` (
@@ -37,23 +37,22 @@ CREATE TABLE `newsletter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `newsletter`
+-- Déchargement des données de la table `newsletter`
 --
 
 INSERT INTO `newsletter` (`id`, `genre`, `nom`, `prenom`, `email`, `naissance`) VALUES
-(2, 'Monsieur', 'ROY', 'Jules', 'jules.roy01@orange.fr', '2004-01-04'),
-(3, 'Monsieur', 'ROY', 'Jules', 'jules.roy100@gmail.com', '2004-01-04');
+(6, 'Monsieur', 'ROY', 'Jules', 'jules.roy@student.junia.com', '2004-01-04');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recipes`
+-- Structure de la table `recipes`
 --
 
 CREATE TABLE `recipes` (
   `id` int(11) NOT NULL,
   `nom` text NOT NULL,
-  `description` text,
+  `descr` text,
   `ingredient1` text,
   `ingredient2` text,
   `ingredient3` text,
@@ -82,7 +81,7 @@ CREATE TABLE `recipes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structure de la table `users`
 --
 
 CREATE TABLE `users` (
@@ -92,62 +91,62 @@ CREATE TABLE `users` (
   `prenom` text NOT NULL,
   `username` text NOT NULL,
   `email` text NOT NULL,
-  `password` text NOT NULL,
+  `mdp` text NOT NULL,
   `datebirth` text NOT NULL,
-  `roles` text NOT NULL
+  `roles` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `genre`, `nom`, `prenom`, `username`, `email`, `password`, `datebirth`, `roles`) VALUES
-(1, 'Mr', 'ROY', 'Jules', 'Pang0lla1n', 'jules.roy01@orange.fr', '$2y$10$N3oVib/5KzJqmLZbXzyuBeVsAr7IF16BYMs9h/sI7Z19xasdEPzLG', '2004-01-04', '[\\\"ROLE_ADMIN\\\"]'),
-(4, 'Mr', 'ROY', 'Jules', 'Jul', 'julesr0y@outlook.com', '$2y$10$ckm9iLKoY.bIWStUxF3NtuVaCzAnH/IoTYUw2HrBxCfxHpqRG4pp6', '2004-01-04', '[\\\"ROLE_USER\\\"]');
+INSERT INTO `users` (`id`, `genre`, `nom`, `prenom`, `username`, `email`, `mdp`, `datebirth`, `roles`) VALUES
+(1, 'Mr', 'Test', 'Admin', 'La Descente Test 1', 'ladescente_admin@student.junia.com', '12345678', '2004-01-01', 0),
+(2, 'Mr', 'Test', 'User', 'La Descente Test 2', 'ladescente_user@student.junia.com', '12345678', '2004-01-01', 1);
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `newsletter`
+-- Index pour la table `newsletter`
 --
 ALTER TABLE `newsletter`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `recipes`
+-- Index pour la table `recipes`
 --
 ALTER TABLE `recipes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Index pour la table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `newsletter`
+-- AUTO_INCREMENT pour la table `newsletter`
 --
 ALTER TABLE `newsletter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `recipes`
+-- AUTO_INCREMENT pour la table `recipes`
 --
 ALTER TABLE `recipes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
