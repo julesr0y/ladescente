@@ -56,7 +56,7 @@ is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pa
             $user = $req->fetch(); //recupération des données
 
             //on verifie le mail et le mot de passe
-            if(!$user || $user["mdp"] != $mdp){ //si le mot de passe ne correspond pas (on vérifie un mot de passe hashé)
+            if(!$user || !password_verify($_POST["mdp"], $user["mdp"])){ //si le mot de passe ne correspond pas (on vérifie un mot de passe hashé)
                 die("<style>.erreur{ display: block }</style>"); //on affiche l'erreur
             }
 

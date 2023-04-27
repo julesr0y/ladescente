@@ -37,6 +37,9 @@ is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pa
             //traitement de la date de naissance
             $birthdate = date('Y-m-d', strtotime($start));
 
+            //on hashe le mdp pour le stocker dans la bdd
+            $pass = password_hash($mdp, PASSWORD_DEFAULT);
+
             //préparation de la requête sql
             $req = $conn->prepare("INSERT INTO users(genre, nom, prenom, username, email, mdp, datebirth, roles) VALUES(:genre, :nom, :prenom, :username, :email, :mdp, :birthdate, :roles)"); //preparation de la requete
             $req->execute(array( //execution de la requete
@@ -45,7 +48,7 @@ is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pa
                 ':prenom' => $prenom,
                 ':username' => $username,
                 ':email' => $courriel,
-                ':mdp' => $mdp,
+                ':mdp' => $pass,
                 ':birthdate' => $birthdate,
                 ':roles' => 1 //1 correspond au rôle d'utilisateur de base, un utilisateur avec un rôle 0 est administrateur
 			));

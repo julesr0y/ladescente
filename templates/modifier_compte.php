@@ -67,7 +67,6 @@ catch(Exception $e){ //en cas d'erreur
         </fieldset>
     </form>
     <?php
-
     if(isset($_POST["Modifier"])){
         try{
             require_once '../php_files/connect_db.php'; //connexion a la bdd
@@ -94,6 +93,8 @@ catch(Exception $e){ //en cas d'erreur
     
             if(!empty($_POST["mdp"])){ //si l'utilisateur souhaite modifier son mot de passe
                 $new_password = valider_donnees($_POST["mdp"]);
+                //on hashe le mdp pour le stocker dans la bdd
+                $mdp = password_hash($mdp, PASSWORD_DEFAULT);
                 $req_prep = $conn->prepare("UPDATE users SET email = :email, username = :username, mdp = :mdp WHERE id = :id"); //requete et preparation
                 $req_prep->execute(array(
                         ":email" => $new_email,
@@ -130,7 +131,6 @@ catch(Exception $e){ //en cas d'erreur
             die("Erreur : " . $e->getMessage());
         }
     }
-
     ?>
 </body>
 </html>
