@@ -32,7 +32,7 @@ catch(Exception $e){ //en cas d'erreur
     <link rel="stylesheet" href="../styles/general/style_commun.css">
     <link rel="stylesheet" href="../styles/compte.css">
     <link rel="stylesheet" href="../styles/modifier_compte.css">
-    <link rel="icon" href="../img/logo2.webp">
+    <link rel="icon" type="image/x-icon" href="../img/logo.ico">
     <title>Modifier le compte</title>
 </head>
 <body>

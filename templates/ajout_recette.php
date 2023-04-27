@@ -13,7 +13,7 @@ $id_user = get_user_id(); //on récupère l'id de l'utilisateur pour le définir
     <meta name="viewport" content="width=device-witdh, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../styles/ajout_recette.css">
     <link rel="stylesheet" href="../styles/general/style_commun.css">
-    <link rel="icon" href="../img/logo2.webp">
+    <link rel="icon" type="image/x-icon" href="../img/logo.ico">
     <title>Proposer une recette</title>
 </head>
 <body>

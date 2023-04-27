@@ -96,7 +96,7 @@ is_connected_connexion_inscription(); //on vérifie que l'utilisateur ne soit pa
 </head>
 <body>
     <header>
-        <a href="index.php">La Descente</a>
+        <a href="../index.php">La Descente</a>
         <a href="connexion.php">Compte</a>
     </header>
     <?php require_once '../struct_files/menu.html'; ?>

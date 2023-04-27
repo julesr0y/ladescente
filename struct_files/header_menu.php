@@ -1,5 +1,5 @@
 <header>
-    <a href="index.php">La Descente</a>
+    <a href="../index.php">La Descente</a>
     <?php
     if(is_connected_global()){
         $account_name = $_SESSION["watibuveur"]["genre"]." ".$_SESSION["watibuveur"]["nom"]." ".$_SESSION["watibuveur"]["prenom"];
@@ -12,7 +12,7 @@
 </header>
 <br>
 <nav>
-    <a href="index.php" class="accueil">Accueil</a>
+    <a href="../index.php" class="accueil">Accueil</a>
     <a href="recettes.php" class="recettes">Recettes et conseils</a>
     <a href="decouvertes.php" class="decouverte">Découverte</a>
     <a href="classements.php" class="classements">Classements</a>

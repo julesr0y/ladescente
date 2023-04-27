@@ -14,12 +14,12 @@ is_admin(); //on vérifie que l'utilisateur soit un admin
     <meta name="viewport" content="width=device-witdh, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../../styles/approve_recipe.css">
     <link rel="stylesheet" href="../../styles/general/style_commun.css">
-    <link rel="icon" href="../../img/logo2.webp">
+    <link rel="icon" type="image/x-icon" href="../../img/logo.ico">
     <title>Administration - Recettes à approuver</title>
 </head>
 <body>
     <header>
-        <a href="../index.php">La Descente - Admin</a>
+        <a href="../../index.php">La Descente - Admin</a>
         <a href="administration.php">Retour</a>
     </header>
     <br>

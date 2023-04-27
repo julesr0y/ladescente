@@ -12,7 +12,7 @@ is_connected_global(); //on vérifie que l'utilisateur est connecté
     <meta name="viewport" content="width=device-witdh, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../styles/a_propos.css">
     <link rel="stylesheet" href="../styles/general/style_commun.css">
-    <link rel="icon" href="../img/logo2.webp">
+    <link rel="icon" type="image/x-icon" href="../img/logo.ico">
     <title>A Propos</title>
 </head>
 <body>

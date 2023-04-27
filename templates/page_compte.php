@@ -12,12 +12,12 @@ is_connected_pagecompte(); //on vérifie que l'utilisateur est connecté
     <meta name="viewport" content="width=device-witdh, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../styles/page_compte.css">
     <link rel="stylesheet" href="../styles/general/style_commun.css">
-    <link rel="icon" href="../img/logo2.webp">
+    <link rel="icon" type="image/x-icon" href="../img/logo.ico">
     <title>Mon compte</title>
 </head>
 <body>
 <header>
-        <a href="index.php">La Descente</a>
+        <a href="../index.php">La Descente</a>
         <?php
             $account_name = $_SESSION["watibuveur"]["genre"]." ".$_SESSION["watibuveur"]["nom"]." ".$_SESSION["watibuveur"]["prenom"];
             echo "<a href='page_compte.php'>$account_name</a>";
